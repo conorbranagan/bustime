@@ -113,7 +113,7 @@ class Vehicle(object):
                      .format(vehicle_ref, line_ref))
         j = raw_vehicles[0]['VehicleActivity'][0]['MonitoredVehicleJourney']
         call = j['MonitoredCall']
-        return Vehicle(j['VehicleRef'], call['StopPointName'])
+        return cls(j['VehicleRef'], call['StopPointName'])
 
     def __init__(self, ref, cur_stop):
         """ Always use `from_ref`, never __init__ directly. """
@@ -130,7 +130,7 @@ class Visit(object):
         j = raw_visit['MonitoredVehicleJourney']
         call = j['MonitoredCall']
         stops_away = call['Extensions']['Distances']['StopsFromCall']
-        return Visit(j['PublishedLineName'], j['LineRef'],
+        return cls(j['PublishedLineName'], j['LineRef'],
                      j['VehicleRef'], stops_away)
 
     def __init__(self, line, line_ref, vehicle_ref, stops_away):
